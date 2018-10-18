@@ -1,0 +1,23 @@
+version: '3'
+services:
+  elixir:
+    build:
+      context: .
+      dockerfile: ./docker/elixir.dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/usr/src
+
+  neo4j:
+    image: 'neo4j:3.4.9'
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - ./docker/neo/plugins:/plugins
+      - ./docker/neo/db:/data
+      - ./docker/neo/conf:/conf
+    environment:
+      - NEO4J_AUTH=neo4j/root
+
